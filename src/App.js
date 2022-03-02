@@ -1,11 +1,18 @@
 import "./App.css";
-import shop from "./get_shop.json";
-import products from "./get_products.json";
+import Home from "./components/Home";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import Cart from "./components/Cart";
 
 function App() {
-  console.log(shop);
-  console.log(products);
-  return <div className="App"></div>;
+  return (
+    <div className="App">
+      <Navbar />
+      <Home />
+      <Footer />
+      <Cart />
+    </div>
+  );
 }
 
 export default App;
