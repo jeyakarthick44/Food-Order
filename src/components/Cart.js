@@ -1,8 +1,7 @@
 import React from "react";
-import { Box, Badge, Heading, Button, SimpleGrid } from "@chakra-ui/react";
+import { Box, Badge, Heading, SimpleGrid } from "@chakra-ui/react";
 import products from "../get_products.json";
-import { AddIcon, MinusIcon, DeleteIcon } from "@chakra-ui/icons";
-import { Text } from "@chakra-ui/react";
+import { DeleteIcon } from "@chakra-ui/icons";
 
 const Home = () => {
   console.log(products.GTS);
