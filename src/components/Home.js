@@ -13,14 +13,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { productsFetch } from "../feature/ProductSlice";
 import item from "../get_products.json";
 import { getProducts } from "../feature/ProductSlice";
+import { addToCart } from "../feature/CartSlice";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  let navigate = useNavigate();
   const dispatch = useDispatch();
   const data = item.GTS;
   dispatch(productsFetch(data));
 
   const food = useSelector(getProducts);
   console.log(food);
+
+  const handleAddToCart = (product) => {
+    dispatch(addToCart(product));
+    navigate("./cart");
+  };
+
   return (
     <>
       <Heading
@@ -32,7 +41,7 @@ const Home = () => {
         Foods
       </Heading>
       <SimpleGrid columns={[1, 2, 3]} spacing={10}>
-        {food.map((item) => (
+        {food.map((product) => (
           <Box
             style={{
               marginLeft: "10%",
@@ -45,17 +54,17 @@ const Home = () => {
             borderWidth="1px"
             borderRadius="lg"
             overflow="hidden"
-            key={item.product_id}
+            key={product.product_id}
           >
             <Image
-              src={item.product_image}
+              src={product.product_image}
               style={{ height: "260px", width: "100%" }}
               alt="home"
             />
             <Box p="6">
               <Box display="flex" alignItems="baseline">
                 <Badge borderRadius="full" px="2" colorScheme="teal">
-                  {item.service.service_name}
+                  {product.service.service_name}
                 </Badge>
                 <Box
                   color="gray.500"
@@ -65,7 +74,7 @@ const Home = () => {
                   textTransform="uppercase"
                   ml="2"
                 >
-                  {item.shop_name}
+                  {product.shop_name}
                   baths
                 </Box>
               </Box>
@@ -77,7 +86,7 @@ const Home = () => {
                 lineHeight="tight"
                 isTruncated
               >
-                {item.shop_name}
+                {product.shop_name}
               </Box>
               <Box>
                 <Box as="span" color="gray.600" fontSize="sm">
@@ -126,9 +135,9 @@ const Home = () => {
                 marginBottom: "20px",
                 color: "blueviolet",
               }}
-              // onClick={() => {
-              //   dispatch(addItemToCart("hi"));
-              // }}
+              onClick={() => {
+                handleAddToCart(product);
+              }}
             >
               Add to Cart
             </Button>

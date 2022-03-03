@@ -1,10 +1,11 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Box, Badge, Heading, SimpleGrid } from "@chakra-ui/react";
-import products from "../get_products.json";
 import { DeleteIcon } from "@chakra-ui/icons";
+import { getProducts } from "../feature/ProductSlice";
 
 const Home = () => {
-  console.log(products.GTS);
+  const recipe = useSelector(getProducts);
 
   return (
     <>
@@ -17,7 +18,7 @@ const Home = () => {
         Foods
       </Heading>
       <SimpleGrid columns={[1, 2, 3]} spacing={0}>
-        {products.GTS.map((item) => (
+        {recipe.GTS.map((item) => (
           <Box
             style={{
               marginLeft: "15%",

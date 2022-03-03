@@ -1,16 +1,17 @@
 import "./App.css";
-import Home from "./components/Home";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-// import Cart from "./components/Cart";
+import Cart from "./components/Cart";
+import HomePage from "./components/HomePage";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
-      <Navbar />
-      <Home />
-      <Footer />
-      {/* <Cart /> */}
+      <Router>
+        <Routes>
+          <Route path="/" element={<HomePage />} exact />
+          <Route path="/cart" element={<Cart />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
