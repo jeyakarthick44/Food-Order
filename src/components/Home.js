@@ -7,15 +7,14 @@ import {
   Button,
   SimpleGrid,
 } from "@chakra-ui/react";
-import { AddIcon, MinusIcon } from "@chakra-ui/icons";
-import { Text } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { productsFetch } from "../feature/ProductSlice";
 import item from "../get_products.json";
 import { getProducts } from "../feature/ProductSlice";
-import { addToCart } from "../feature/CartSlice";
+import { addToCart, decreaseCart } from "../feature/CartSlice";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+import { ArrowForwardIcon } from "@chakra-ui/icons";
 const Home = () => {
   let navigate = useNavigate();
   const dispatch = useDispatch();
@@ -38,8 +37,9 @@ const Home = () => {
         isTruncated
         style={{ textAlign: "center", marginTop: "20px" }}
       >
-        Foods
+        Swiggy
       </Heading>
+
       <SimpleGrid columns={[1, 2, 3]} spacing={10}>
         {food.map((product) => (
           <Box
@@ -62,21 +62,12 @@ const Home = () => {
               alt="home"
             />
             <Box p="6">
-              <Box display="flex" alignItems="baseline">
-                <Badge borderRadius="full" px="2" colorScheme="teal">
-                  {product.service.service_name}
+              <Box>
+                <Badge borderRadius="full">
+                  <Heading px="4" p="2" color="teel" as="h5" size="sm">
+                    {product.product_name}
+                  </Heading>
                 </Badge>
-                <Box
-                  color="gray.500"
-                  fontWeight="semibold"
-                  letterSpacing="wide"
-                  fontSize="xs"
-                  textTransform="uppercase"
-                  ml="2"
-                >
-                  {product.shop_name}
-                  baths
-                </Box>
               </Box>
 
               <Box
@@ -90,19 +81,21 @@ const Home = () => {
               </Box>
               <Box>
                 <Box as="span" color="gray.600" fontSize="sm">
-                  {item.price}/week
+                  Price : ₹
+                  {product.product_price.map((price) => price.product_price)}
                 </Box>
               </Box>
               <Box>
-                <Box
+                <Heading
                   mt="1"
                   fontWeight="semibold"
-                  as="h4"
+                  as="xs"
+                  size="xs"
                   lineHeight="tight"
                   isTruncated
                 >
-                  {item.shop_name}
-                </Box>
+                  {product.product_message}
+                </Heading>
                 <span
                   mt="1"
                   fontWeight="semibold"
@@ -111,24 +104,6 @@ const Home = () => {
                   isTruncated
                 ></span>
               </Box>
-            </Box>
-            <Box
-              bg="whiteSmoke"
-              w="50%"
-              p={1}
-              color="black"
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-around",
-                alignItems: "center",
-                marginLeft: "25%",
-                marginBottom: "20px",
-              }}
-            >
-              <MinusIcon />
-              <Text fontSize="xl">0</Text>
-              <AddIcon />
             </Box>
             <Button
               style={{
@@ -144,6 +119,12 @@ const Home = () => {
           </Box>
         ))}
       </SimpleGrid>
+      <Link to={"/cart"}>
+        <Button style={{ marginBottom: "30px" }}>
+          Cart
+          <ArrowForwardIcon style={{ marginLeft: "10px" }} />
+        </Button>
+      </Link>
     </>
   );
 };

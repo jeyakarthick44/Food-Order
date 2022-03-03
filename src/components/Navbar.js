@@ -2,18 +2,19 @@ import {
   Box,
   Flex,
   Text,
+  Link,
   IconButton,
   Button,
   Stack,
   Collapse,
   Icon,
-  Link,
   Popover,
   PopoverTrigger,
   PopoverContent,
   useColorModeValue,
   useBreakpointValue,
   useDisclosure,
+  Heading,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -21,8 +22,12 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
 } from "@chakra-ui/icons";
+import { useSelector } from "react-redux";
+import { BsFillCartCheckFill } from "react-icons/bs";
 
 export default function WithSubnavigation() {
+  const { cartTotalQuantity } = useSelector((state) => state.cart);
+
   const { isOpen, onToggle } = useDisclosure();
 
   return (
@@ -65,36 +70,49 @@ export default function WithSubnavigation() {
             <DesktopNav />
           </Flex>
         </Flex>
+        <jk to={"/cart"}>
+          <Button
+            style={{
+              marginRight: "30px",
+              paddingRight: "20px",
+              paddingLeft: "20px",
+            }}
+          >
+            Cart
+          </Button>
+        </jk>
+        <BsFillCartCheckFill
+          style={{
+            color: "blue",
+            fontSize: "30px",
+            marginTop: "10px",
+            marginRight: "20px",
+          }}
+        />
+        <Heading
+          style={{
+            fontSize: "12px",
+            position: "relative",
+            top: "-10px",
+            right: "29px",
+            width: "23px",
+            height: "23px",
+            borderRadius: "50%",
+            backgroundColor: "#4CAF50",
+            color: "white",
+            textAlign: "center",
+            paddingTop: "4px",
+          }}
+        >
+          {cartTotalQuantity}
+        </Heading>
 
         <Stack
           flex={{ base: 1, md: 0 }}
           justify={"flex-end"}
           direction={"row"}
           spacing={6}
-        >
-          <Button
-            as={"a"}
-            fontSize={"sm"}
-            fontWeight={400}
-            variant={"link"}
-            href={"#"}
-          >
-            Sign In
-          </Button>
-          <Button
-            display={{ base: "none", md: "inline-flex" }}
-            fontSize={"sm"}
-            fontWeight={600}
-            color={"white"}
-            bg={"pink.400"}
-            href={"#"}
-            _hover={{
-              bg: "pink.300",
-            }}
-          >
-            Sign Up
-          </Button>
-        </Stack>
+        ></Stack>
       </Flex>
 
       <Collapse in={isOpen} animateOpacity>
